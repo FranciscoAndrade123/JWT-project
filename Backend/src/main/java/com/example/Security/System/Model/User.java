@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
 
@@ -24,7 +26,8 @@ public class User {
     private int user_id;
 
     // Relación con la tabla rol
-    @Column(name="rol_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol_id;
 
     // Atributos de la tabla user
