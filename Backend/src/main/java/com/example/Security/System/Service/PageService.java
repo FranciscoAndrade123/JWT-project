@@ -37,6 +37,30 @@ public class PageService {
         return pageRepository.findById(id);
     }     
 
+    // Servicio
+public ResponseDTO deletePage(int id) {
+    Optional<Page> pageOpt = pageRepository.findById(id);
+    if (pageOpt.isPresent()) {
+        pageRepository.deleteById(id);
+        return new ResponseDTO("Se eliminó correctamente", HttpStatus.OK.toString());
+    } else {
+        return new ResponseDTO("No se encontró la página", HttpStatus.NOT_FOUND.toString());
+    }
+}
+
+    //Actualizar un page
+    public ResponseDTO updatePagei(int id, PageDTO pageDTO) {
+        Optional<Page> pageExisting = pageRepository.findById(id); // Buscar el Page por ID
+        if(pageExisting.isPresent()){
+            Page page = convertPage(pageDTO);
+            page.setPage_id(id);
+            pageRepository.save(page);
+            return new ResponseDTO("Se actualizó correctamente " ,  HttpStatus.OK.toString());
+        }else{
+            return new ResponseDTO("No se encontró el Page " ,  HttpStatus.NOT_FOUND.toString());
+        }
+    }
+
     //Convertir de entidad a DTO
     public PageDTO convertPageDTO (Page page) {
         PageDTO pageDTO = new PageDTO();
